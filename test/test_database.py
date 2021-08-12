@@ -28,7 +28,7 @@ class TestDataBase(unittest.TestCase):
 
     def test_connect_exist_database(self):
         # SetUp
-        db = Database(self.test_db_name, "items")
+        Database(self.test_db_name, "items")
         self.assertTrue(os.path.isfile(self.test_db_name))
 
         # Execute
