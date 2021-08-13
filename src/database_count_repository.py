@@ -28,7 +28,7 @@ class DatabaseCountRepository(AbstractCountRepository):
     def create_table(self):
         self._cursor.execute(
             f'CREATE TABLE {self._table_name}'
-            '    (timestamp REAL, key TEXT, value INTEGER)'
+            '    (timestamp INTEGER, key TEXT, value INTEGER)'
         )
         self._connection.commit()
 
@@ -42,7 +42,7 @@ class DatabaseCountRepository(AbstractCountRepository):
             f'INSERT INTO {self._table_name}'
             '    (timestamp, key, value)'
             '    VALUES ('
-            f'       {count.timestamp.timestamp()},'
+            f'       {int(count.timestamp.timestamp())},'
             f'       "{count.key}",'
             f'       {count.value})')
         self._connection.commit()
@@ -63,7 +63,7 @@ class DatabaseCountRepository(AbstractCountRepository):
     def find_by_timestamp(self, timestamp: datetime) -> List[CountEntity]:
         return self._fetch(
             f'SELECT * from {self._table_name}'
-            f'    WHERE timestamp = {timestamp.timestamp()}')
+            f'    WHERE timestamp = {int(timestamp.timestamp())}')
 
 
 AbstractCountRepository.register(DatabaseCountRepository)
