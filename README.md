@@ -1,8 +1,7 @@
-# What is TSDraw?
+# What is Chisum?
+Count HIstory SUMmarizer.
 
-Time Series Drawer.
-
-Import the following syle data (`uniq -c`) into database with timestamp, and summarise its time series.
+Record the following count data (`uniq -c`, `wc -l`) into database with timestamp, and summarise its history.
 
 ```
       4 /usr/share/code/libEGL.so
@@ -10,11 +9,18 @@ Import the following syle data (`uniq -c`) into database with timestamp, and sum
      52 /usr/share/code/libffmpeg.so
 ```
 
-# Howto Setup
+# Howto Setup (for User)
 
 ```
 pip3 install --user pipenv
 pipenv install
+```
+
+# Howto Setup (for Developer)
+
+```
+pip3 install --user pipenv
+pipenv install --dev
 ```
 
 # Precommit check
