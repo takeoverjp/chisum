@@ -1,13 +1,14 @@
 import os
 import unittest
+from datetime import datetime, timezone
 
-from src.storage_database import StorageDatabase
 from src.entity import Entity
+from src.storage_database import StorageDatabase
 
 
 class TestDataBase(unittest.TestCase):
-    test_db_name = "test_database.db"
-    test_table_name = "items"
+    test_db_name = "test_database.storage"
+    test_table_name = "entities"
 
     def setUp(self) -> None:
         if os.path.isfile(self.test_db_name):
@@ -22,11 +23,11 @@ class TestDataBase(unittest.TestCase):
 
     def test_create_database(self):
         # Execute
-        db = StorageDatabase(self.test_db_name, self.test_table_name)
+        storage = StorageDatabase(self.test_db_name, self.test_table_name)
 
         # Assert
         self.assertTrue(os.path.isfile(self.test_db_name))
-        self.assertTrue(db.has_table())
+        self.assertTrue(storage.has_table())
 
     def test_connect_exist_database(self):
         # SetUp
@@ -34,33 +35,35 @@ class TestDataBase(unittest.TestCase):
         self.assertTrue(os.path.isfile(self.test_db_name))
 
         # Execute
-        db = StorageDatabase(self.test_db_name, self.test_table_name)
+        storage = StorageDatabase(self.test_db_name, self.test_table_name)
 
         # Assert
         self.assertTrue(os.path.isfile(self.test_db_name))
-        self.assertTrue(db.has_table())
+        self.assertTrue(storage.has_table())
 
     def test_no_item_after_creation(self):
         # SetUp
-        db = StorageDatabase(self.test_db_name, self.test_table_name)
+        storage = StorageDatabase(self.test_db_name, self.test_table_name)
 
         # Execute
-        items = db.load_all()
+        entities = storage.load_all()
 
         # Assert
-        self.assertEqual(len(items), 0)
+        self.assertEqual(len(entities), 0)
 
     def test_one_item_after_store(self):
         # SetUp
-        db = StorageDatabase(self.test_db_name, self.test_table_name)
+        storage = StorageDatabase(self.test_db_name, self.test_table_name)
 
         # Execute
-        ent = Entity("20200101_000000", "/bin/bash", 3)
-        db.store(ent)
+        ent = Entity(datetime(2020, 1, 1, 0, 0, 0,
+                     tzinfo=timezone.utc), "/bin/bash", 3)
+        storage.store(ent)
 
         # Assert
-        items = db.load_all()
-        self.assertEqual(len(items), 1)
+        entities = storage.load_all()
+        self.assertEqual(len(entities), 1)
+        self.assertEqual(entities[0], ent)
 
 
 if __name__ == '__main__':

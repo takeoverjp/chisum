@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime, timezone
 from src.entity import Entity
 
 
@@ -7,6 +8,7 @@ class StorageDatabase:
         self._file_name = file_name
         self._table_name = table_name
         self._connection = sqlite3.connect(self._file_name)
+        # self._connection.set_trace_callback(print)
         self._cursor = self._connection.cursor()
         if not self.has_table():
             self.create_table()
@@ -38,11 +40,14 @@ class StorageDatabase:
             f'INSERT INTO {self._table_name}'
             '  (timestamp, path, count)'
             '  VALUES ('
-            f'   "{entity.timestamp}",'
+            f'   "{entity.timestamp.timestamp()}",'
             f'   "{entity.path}",'
             f'   {entity.count})')
         self._connection.commit()
 
     def load_all(self):
-        return self._cursor.execute(
-            f'SELECT * from {self._table_name}').fetchall()
+        return list(map(
+            lambda ent: Entity(datetime.fromtimestamp(
+                float(ent[0]), tz=timezone.utc), ent[1], int(ent[2])),
+            self._cursor.execute(
+                f'SELECT * from {self._table_name}').fetchall()))
