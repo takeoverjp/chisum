@@ -37,14 +37,15 @@ class DatabaseCountRepository(AbstractCountRepository):
             'SELECT * from sqlite_master')
             .fetchall())
 
-    def save(self, count: CountEntity):
-        self._cursor.execute(
-            f'INSERT INTO {self._table_name}'
-            '    (timestamp, key, value)'
-            '    VALUES ('
-            f'       {int(count.timestamp.timestamp())},'
-            f'       "{count.key}",'
-            f'       {count.value})')
+    def save(self, counts: List[CountEntity]):
+        for count in counts:
+            self._cursor.execute(
+                f'INSERT INTO {self._table_name}'
+                '    (timestamp, key, value)'
+                '    VALUES ('
+                f'       {int(count.timestamp.timestamp())},'
+                f'       "{count.key}",'
+                f'       {count.value})')
         self._connection.commit()
 
     def _fetch(self, sql: str) -> List[CountEntity]:

@@ -8,5 +8,4 @@ class RecordCountUseCaseInteractor(AbstractRecordCountUseCase):
         self.repository = repository
 
     def handle(self, input: RecordCountInputData):
-        for count in input.counts:
-            self.repository.save(count)
+        self.repository.save(input.counts)

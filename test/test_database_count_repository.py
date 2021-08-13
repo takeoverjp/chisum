@@ -62,7 +62,7 @@ class TestDatabaseCountRepository(unittest.TestCase):
         # Execute
         ent = CountEntity(datetime(2020, 1, 1, 0, 0, 0,
                                    tzinfo=timezone.utc), "/bin/bash", 3)
-        repository.save(ent)
+        repository.save([ent])
 
         # Assert
         counts = repository.find_all()
@@ -81,9 +81,7 @@ class TestDatabaseCountRepository(unittest.TestCase):
                                     tzinfo=timezone.utc), "/bin/sash", 4)
         ent2 = CountEntity(datetime(2022, 3, 4, 5, 6, 7,
                                     tzinfo=timezone.utc), "/bin/cash", 5)
-        repository.save(ent0)
-        repository.save(ent1)
-        repository.save(ent2)
+        repository.save([ent0, ent1, ent2])
 
         # Assert
         counts = repository.find_all()
@@ -103,9 +101,7 @@ class TestDatabaseCountRepository(unittest.TestCase):
                                     tzinfo=timezone.utc), "/bin/sash", 4)
         ent2 = CountEntity(datetime(2022, 3, 4, 5, 6, 7,
                                     tzinfo=timezone.utc), "/bin/cash", 5)
-        repository.save(ent0)
-        repository.save(ent1)
-        repository.save(ent2)
+        repository.save([ent0, ent1, ent2])
 
         # Execute
         counts = repository.find_by_timestamp(datetime(2020, 1, 1, 0, 0, 0,
