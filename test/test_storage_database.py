@@ -2,6 +2,7 @@ import os
 import unittest
 
 from src.storage_database import StorageDatabase
+from src.entity import Entity
 
 
 class TestDataBase(unittest.TestCase):
@@ -38,6 +39,28 @@ class TestDataBase(unittest.TestCase):
         # Assert
         self.assertTrue(os.path.isfile(self.test_db_name))
         self.assertTrue(db.has_table())
+
+    def test_no_item_after_creation(self):
+        # SetUp
+        db = StorageDatabase(self.test_db_name, self.test_table_name)
+
+        # Execute
+        items = db.load_all()
+
+        # Assert
+        self.assertEqual(len(items), 0)
+
+    def test_one_item_after_store(self):
+        # SetUp
+        db = StorageDatabase(self.test_db_name, self.test_table_name)
+
+        # Execute
+        ent = Entity("20200101_000000", "/bin/bash", 3)
+        db.store(ent)
+
+        # Assert
+        items = db.load_all()
+        self.assertEqual(len(items), 1)
 
 
 if __name__ == '__main__':

@@ -1,4 +1,5 @@
 import sqlite3
+from src.entity import Entity
 
 
 class StorageDatabase:
@@ -31,3 +32,17 @@ class StorageDatabase:
         print(self._cursor.execute(
             'SELECT * from sqlite_master')
             .fetchall())
+
+    def store(self, entity: Entity):
+        self._cursor.execute(
+            f'INSERT INTO {self._table_name}'
+            '  (timestamp, path, count)'
+            '  VALUES ('
+            f'   "{entity.timestamp}",'
+            f'   "{entity.path}",'
+            f'   {entity.count})')
+        self._connection.commit()
+
+    def load_all(self):
+        return self._cursor.execute(
+            f'SELECT * from {self._table_name}').fetchall()
