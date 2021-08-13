@@ -2,10 +2,10 @@ import sqlite3
 from datetime import datetime, timezone
 from typing import List
 from src.count_entity import CountEntity
-from src.storage_interface import StorageInterface
+from src.abstract_count_repository import AbstractCountRepository
 
 
-class StorageDatabase(StorageInterface):
+class DatabaseCountRepository(AbstractCountRepository):
     def __init__(self, file_name: str, table_name: str):
         self._file_name = file_name
         self._table_name = table_name
@@ -37,7 +37,7 @@ class StorageDatabase(StorageInterface):
             'SELECT * from sqlite_master')
             .fetchall())
 
-    def store(self, count: CountEntity):
+    def save(self, count: CountEntity):
         self._cursor.execute(
             f'INSERT INTO {self._table_name}'
             '  (timestamp, key, value)'
@@ -47,7 +47,7 @@ class StorageDatabase(StorageInterface):
             f'   {count.value})')
         self._connection.commit()
 
-    def load_all(self) -> List[CountEntity]:
+    def find_all(self) -> List[CountEntity]:
         return list(map(
             lambda ent: CountEntity(datetime.fromtimestamp(
                 ent[0], tz=timezone.utc), ent[1], ent[2]),
@@ -55,4 +55,4 @@ class StorageDatabase(StorageInterface):
                 f'SELECT * from {self._table_name}').fetchall()))
 
 
-StorageInterface.register(StorageDatabase)
+AbstractCountRepository.register(DatabaseCountRepository)

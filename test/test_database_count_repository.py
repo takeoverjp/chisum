@@ -3,11 +3,11 @@ import unittest
 from datetime import datetime, timezone
 
 from src.count_entity import CountEntity
-from src.storage_database import StorageDatabase
+from src.database_count_repository import DatabaseCountRepository
 
 
-class TestDataBase(unittest.TestCase):
-    test_db_name = "test_database.storage"
+class TestDataBaseCountRepository(unittest.TestCase):
+    test_db_name = "test_database.repository"
     test_table_name = "counts"
 
     def setUp(self) -> None:
@@ -23,51 +23,56 @@ class TestDataBase(unittest.TestCase):
 
     def test_create_database(self):
         # Execute
-        storage = StorageDatabase(self.test_db_name, self.test_table_name)
+        repository = DatabaseCountRepository(
+            self.test_db_name, self.test_table_name)
 
         # Assert
         self.assertTrue(os.path.isfile(self.test_db_name))
-        self.assertTrue(storage.has_table())
+        self.assertTrue(repository.has_table())
 
     def test_connect_exist_database(self):
         # SetUp
-        StorageDatabase(self.test_db_name, self.test_table_name)
+        DatabaseCountRepository(self.test_db_name, self.test_table_name)
         self.assertTrue(os.path.isfile(self.test_db_name))
 
         # Execute
-        storage = StorageDatabase(self.test_db_name, self.test_table_name)
+        repository = DatabaseCountRepository(
+            self.test_db_name, self.test_table_name)
 
         # Assert
         self.assertTrue(os.path.isfile(self.test_db_name))
-        self.assertTrue(storage.has_table())
+        self.assertTrue(repository.has_table())
 
     def test_no_item_after_creation(self):
         # SetUp
-        storage = StorageDatabase(self.test_db_name, self.test_table_name)
+        repository = DatabaseCountRepository(
+            self.test_db_name, self.test_table_name)
 
         # Execute
-        counts = storage.load_all()
+        counts = repository.find_all()
 
         # Assert
         self.assertEqual(len(counts), 0)
 
-    def test_store_one_item(self):
+    def test_save_one_item(self):
         # SetUp
-        storage = StorageDatabase(self.test_db_name, self.test_table_name)
+        repository = DatabaseCountRepository(
+            self.test_db_name, self.test_table_name)
 
         # Execute
         ent = CountEntity(datetime(2020, 1, 1, 0, 0, 0,
                                    tzinfo=timezone.utc), "/bin/bash", 3)
-        storage.store(ent)
+        repository.save(ent)
 
         # Assert
-        counts = storage.load_all()
+        counts = repository.find_all()
         self.assertEqual(len(counts), 1)
         self.assertEqual(counts[0], ent)
 
-    def test_store_multi_items(self):
+    def test_save_multi_items(self):
         # SetUp
-        storage = StorageDatabase(self.test_db_name, self.test_table_name)
+        repository = DatabaseCountRepository(
+            self.test_db_name, self.test_table_name)
 
         # Execute
         ent0 = CountEntity(datetime(2020, 1, 1, 0, 0, 0,
@@ -76,12 +81,12 @@ class TestDataBase(unittest.TestCase):
                                     tzinfo=timezone.utc), "/bin/sash", 4)
         ent2 = CountEntity(datetime(2022, 3, 4, 5, 6, 7,
                                     tzinfo=timezone.utc), "/bin/cash", 5)
-        storage.store(ent0)
-        storage.store(ent1)
-        storage.store(ent2)
+        repository.save(ent0)
+        repository.save(ent1)
+        repository.save(ent2)
 
         # Assert
-        counts = storage.load_all()
+        counts = repository.find_all()
         self.assertEqual(len(counts), 3)
         self.assertIn(ent0, counts)
         self.assertIn(ent1, counts)

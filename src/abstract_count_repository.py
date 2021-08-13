@@ -4,11 +4,11 @@ from typing import List
 from src.count_entity import CountEntity
 
 
-class StorageInterface(ABC):
+class AbstractCountRepository(ABC):
     @abstractmethod
-    def store(self, count: CountEntity):
+    def save(self, count: CountEntity):
         pass
 
     @abstractmethod
-    def load_all(self) -> List[CountEntity]:
+    def find_all(self) -> List[CountEntity]:
         pass
