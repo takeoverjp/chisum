@@ -1,14 +1,14 @@
 from abc import ABC
 from abc import abstractmethod
 from typing import List
-from src.entity import Entity
+from src.count_entity import CountEntity
 
 
 class StorageInterface(ABC):
     @abstractmethod
-    def store(self, entity: Entity):
+    def store(self, count: CountEntity):
         pass
 
     @abstractmethod
-    def load_all(self) -> List[Entity]:
+    def load_all(self) -> List[CountEntity]:
         pass

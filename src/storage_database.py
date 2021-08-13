@@ -1,7 +1,7 @@
 import sqlite3
 from datetime import datetime, timezone
 from typing import List
-from src.entity import Entity
+from src.count_entity import CountEntity
 from src.storage_interface import StorageInterface
 
 
@@ -37,19 +37,19 @@ class StorageDatabase(StorageInterface):
             'SELECT * from sqlite_master')
             .fetchall())
 
-    def store(self, entity: Entity):
+    def store(self, count: CountEntity):
         self._cursor.execute(
             f'INSERT INTO {self._table_name}'
             '  (timestamp, path, count)'
             '  VALUES ('
-            f'   {entity.timestamp.timestamp()},'
-            f'   "{entity.path}",'
-            f'   {entity.count})')
+            f'   {count.timestamp.timestamp()},'
+            f'   "{count.path}",'
+            f'   {count.count})')
         self._connection.commit()
 
-    def load_all(self) -> List[Entity]:
+    def load_all(self) -> List[CountEntity]:
         return list(map(
-            lambda ent: Entity(datetime.fromtimestamp(
+            lambda ent: CountEntity(datetime.fromtimestamp(
                 ent[0], tz=timezone.utc), ent[1], ent[2]),
             self._cursor.execute(
                 f'SELECT * from {self._table_name}').fetchall()))

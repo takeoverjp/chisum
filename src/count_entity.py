@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-class Entity:
+class CountEntity:
     def __init__(self, timestamp: datetime, path: str, count: int):
         self.timestamp = timestamp
         self.path = path

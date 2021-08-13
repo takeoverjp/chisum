@@ -2,13 +2,13 @@ import os
 import unittest
 from datetime import datetime, timezone
 
-from src.entity import Entity
+from src.count_entity import CountEntity
 from src.storage_database import StorageDatabase
 
 
 class TestDataBase(unittest.TestCase):
     test_db_name = "test_database.storage"
-    test_table_name = "entities"
+    test_table_name = "counts"
 
     def setUp(self) -> None:
         if os.path.isfile(self.test_db_name):
@@ -46,46 +46,46 @@ class TestDataBase(unittest.TestCase):
         storage = StorageDatabase(self.test_db_name, self.test_table_name)
 
         # Execute
-        entities = storage.load_all()
+        counts = storage.load_all()
 
         # Assert
-        self.assertEqual(len(entities), 0)
+        self.assertEqual(len(counts), 0)
 
     def test_store_one_item(self):
         # SetUp
         storage = StorageDatabase(self.test_db_name, self.test_table_name)
 
         # Execute
-        ent = Entity(datetime(2020, 1, 1, 0, 0, 0,
-                     tzinfo=timezone.utc), "/bin/bash", 3)
+        ent = CountEntity(datetime(2020, 1, 1, 0, 0, 0,
+                                   tzinfo=timezone.utc), "/bin/bash", 3)
         storage.store(ent)
 
         # Assert
-        entities = storage.load_all()
-        self.assertEqual(len(entities), 1)
-        self.assertEqual(entities[0], ent)
+        counts = storage.load_all()
+        self.assertEqual(len(counts), 1)
+        self.assertEqual(counts[0], ent)
 
     def test_store_multi_items(self):
         # SetUp
         storage = StorageDatabase(self.test_db_name, self.test_table_name)
 
         # Execute
-        ent0 = Entity(datetime(2020, 1, 1, 0, 0, 0,
-                               tzinfo=timezone.utc), "/bin/bash", 3)
-        ent1 = Entity(datetime(2021, 2, 3, 4, 5, 6,
-                               tzinfo=timezone.utc), "/bin/sash", 4)
-        ent2 = Entity(datetime(2022, 3, 4, 5, 6, 7,
-                               tzinfo=timezone.utc), "/bin/cash", 5)
+        ent0 = CountEntity(datetime(2020, 1, 1, 0, 0, 0,
+                                    tzinfo=timezone.utc), "/bin/bash", 3)
+        ent1 = CountEntity(datetime(2021, 2, 3, 4, 5, 6,
+                                    tzinfo=timezone.utc), "/bin/sash", 4)
+        ent2 = CountEntity(datetime(2022, 3, 4, 5, 6, 7,
+                                    tzinfo=timezone.utc), "/bin/cash", 5)
         storage.store(ent0)
         storage.store(ent1)
         storage.store(ent2)
 
         # Assert
-        entities = storage.load_all()
-        self.assertEqual(len(entities), 3)
-        self.assertIn(ent0, entities)
-        self.assertIn(ent1, entities)
-        self.assertIn(ent2, entities)
+        counts = storage.load_all()
+        self.assertEqual(len(counts), 3)
+        self.assertIn(ent0, counts)
+        self.assertIn(ent1, counts)
+        self.assertIn(ent2, counts)
 
 
 if __name__ == '__main__':
