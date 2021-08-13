@@ -51,7 +51,7 @@ class TestDataBase(unittest.TestCase):
         # Assert
         self.assertEqual(len(entities), 0)
 
-    def test_one_item_after_store(self):
+    def test_store_one_item(self):
         # SetUp
         storage = StorageDatabase(self.test_db_name, self.test_table_name)
 
@@ -64,6 +64,28 @@ class TestDataBase(unittest.TestCase):
         entities = storage.load_all()
         self.assertEqual(len(entities), 1)
         self.assertEqual(entities[0], ent)
+
+    def test_store_multi_items(self):
+        # SetUp
+        storage = StorageDatabase(self.test_db_name, self.test_table_name)
+
+        # Execute
+        ent0 = Entity(datetime(2020, 1, 1, 0, 0, 0,
+                               tzinfo=timezone.utc), "/bin/bash", 3)
+        ent1 = Entity(datetime(2021, 2, 3, 4, 5, 6,
+                               tzinfo=timezone.utc), "/bin/sash", 4)
+        ent2 = Entity(datetime(2022, 3, 4, 5, 6, 7,
+                               tzinfo=timezone.utc), "/bin/cash", 5)
+        storage.store(ent0)
+        storage.store(ent1)
+        storage.store(ent2)
+
+        # Assert
+        entities = storage.load_all()
+        self.assertEqual(len(entities), 3)
+        self.assertIn(ent0, entities)
+        self.assertIn(ent1, entities)
+        self.assertIn(ent2, entities)
 
 
 if __name__ == '__main__':
