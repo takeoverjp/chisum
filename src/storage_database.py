@@ -40,7 +40,7 @@ class StorageDatabase:
             f'INSERT INTO {self._table_name}'
             '  (timestamp, path, count)'
             '  VALUES ('
-            f'   "{entity.timestamp.timestamp()}",'
+            f'   {entity.timestamp.timestamp()},'
             f'   "{entity.path}",'
             f'   {entity.count})')
         self._connection.commit()
