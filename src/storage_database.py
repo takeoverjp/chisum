@@ -28,7 +28,7 @@ class StorageDatabase(StorageInterface):
     def create_table(self):
         self._cursor.execute(
             f'CREATE TABLE {self._table_name}'
-            '  (timestamp REAL, path TEXT, count INTEGER)'
+            '  (timestamp REAL, key TEXT, value INTEGER)'
         )
         self._connection.commit()
 
@@ -40,11 +40,11 @@ class StorageDatabase(StorageInterface):
     def store(self, count: CountEntity):
         self._cursor.execute(
             f'INSERT INTO {self._table_name}'
-            '  (timestamp, path, count)'
+            '  (timestamp, key, value)'
             '  VALUES ('
             f'   {count.timestamp.timestamp()},'
-            f'   "{count.path}",'
-            f'   {count.count})')
+            f'   "{count.key}",'
+            f'   {count.value})')
         self._connection.commit()
 
     def load_all(self) -> List[CountEntity]:
