@@ -26,7 +26,7 @@ class StorageDatabase:
     def create_table(self):
         self._cursor.execute(
             f'CREATE TABLE {self._table_name}'
-            '  (timestamp TEXT, path TEXT, count INTEGER)'
+            '  (timestamp REAL, path TEXT, count INTEGER)'
         )
         self._connection.commit()
 
@@ -48,6 +48,6 @@ class StorageDatabase:
     def load_all(self):
         return list(map(
             lambda ent: Entity(datetime.fromtimestamp(
-                float(ent[0]), tz=timezone.utc), ent[1], int(ent[2])),
+                ent[0], tz=timezone.utc), ent[1], ent[2]),
             self._cursor.execute(
                 f'SELECT * from {self._table_name}').fetchall()))
