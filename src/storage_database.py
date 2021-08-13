@@ -1,7 +1,7 @@
 import sqlite3
 
 
-class Database:
+class StorageDatabase:
     def __init__(self, file_name, table_name):
         self._file_name = file_name
         self._table_name = table_name

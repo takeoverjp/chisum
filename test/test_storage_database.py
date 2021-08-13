@@ -1,11 +1,12 @@
 import os
 import unittest
 
-from src.database import Database
+from src.storage_database import StorageDatabase
 
 
 class TestDataBase(unittest.TestCase):
     test_db_name = "test_database.db"
+    test_table_name = "items"
 
     def setUp(self) -> None:
         if os.path.isfile(self.test_db_name):
@@ -20,7 +21,7 @@ class TestDataBase(unittest.TestCase):
 
     def test_create_database(self):
         # Execute
-        db = Database(self.test_db_name, "items")
+        db = StorageDatabase(self.test_db_name, self.test_table_name)
 
         # Assert
         self.assertTrue(os.path.isfile(self.test_db_name))
@@ -28,11 +29,11 @@ class TestDataBase(unittest.TestCase):
 
     def test_connect_exist_database(self):
         # SetUp
-        Database(self.test_db_name, "items")
+        StorageDatabase(self.test_db_name, self.test_table_name)
         self.assertTrue(os.path.isfile(self.test_db_name))
 
         # Execute
-        db = Database(self.test_db_name, "items")
+        db = StorageDatabase(self.test_db_name, self.test_table_name)
 
         # Assert
         self.assertTrue(os.path.isfile(self.test_db_name))
