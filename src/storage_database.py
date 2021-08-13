@@ -1,9 +1,11 @@
 import sqlite3
 from datetime import datetime, timezone
+from typing import List
 from src.entity import Entity
+from src.storage_interface import StorageInterface
 
 
-class StorageDatabase:
+class StorageDatabase(StorageInterface):
     def __init__(self, file_name: str, table_name: str):
         self._file_name = file_name
         self._table_name = table_name
@@ -45,9 +47,12 @@ class StorageDatabase:
             f'   {entity.count})')
         self._connection.commit()
 
-    def load_all(self):
+    def load_all(self) -> List[Entity]:
         return list(map(
             lambda ent: Entity(datetime.fromtimestamp(
                 ent[0], tz=timezone.utc), ent[1], ent[2]),
             self._cursor.execute(
                 f'SELECT * from {self._table_name}').fetchall()))
+
+
+StorageInterface.register(StorageDatabase)
