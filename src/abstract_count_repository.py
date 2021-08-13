@@ -12,3 +12,7 @@ class AbstractCountRepository(ABC):
     @abstractmethod
     def find_all(self) -> List[CountEntity]:
         pass
+
+    @abstractmethod
+    def find_by_timestamp(self, timestamp: float) -> List[CountEntity]:
+        pass

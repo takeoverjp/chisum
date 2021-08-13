@@ -21,14 +21,14 @@ class DatabaseCountRepository(AbstractCountRepository):
     def has_table(self):
         return self._cursor.execute(
             'SELECT COUNT(*) from sqlite_master'
-            f'  WHERE TYPE=\'table\''
-            f'    AND name=\'{self._table_name}\'')\
+            f'    WHERE TYPE=\'table\''
+            f'        AND name=\'{self._table_name}\'')\
             .fetchone()[0] == 1
 
     def create_table(self):
         self._cursor.execute(
             f'CREATE TABLE {self._table_name}'
-            '  (timestamp REAL, key TEXT, value INTEGER)'
+            '    (timestamp REAL, key TEXT, value INTEGER)'
         )
         self._connection.commit()
 
@@ -40,19 +40,30 @@ class DatabaseCountRepository(AbstractCountRepository):
     def save(self, count: CountEntity):
         self._cursor.execute(
             f'INSERT INTO {self._table_name}'
-            '  (timestamp, key, value)'
-            '  VALUES ('
-            f'   {count.timestamp.timestamp()},'
-            f'   "{count.key}",'
-            f'   {count.value})')
+            '    (timestamp, key, value)'
+            '    VALUES ('
+            f'       {count.timestamp.timestamp()},'
+            f'       "{count.key}",'
+            f'       {count.value})')
         self._connection.commit()
 
-    def find_all(self) -> List[CountEntity]:
+    def _fetch(self, sql: str) -> List[CountEntity]:
+        def row_to_count_entity(row) -> CountEntity:
+            return CountEntity(datetime.fromtimestamp(
+                row[0], tz=timezone.utc), row[1], row[2])
+
         return list(map(
-            lambda ent: CountEntity(datetime.fromtimestamp(
-                ent[0], tz=timezone.utc), ent[1], ent[2]),
-            self._cursor.execute(
-                f'SELECT * from {self._table_name}').fetchall()))
+            row_to_count_entity,
+            self._cursor.execute(sql).fetchall()))
+
+    def find_all(self) -> List[CountEntity]:
+        return self._fetch(
+            f'SELECT * from {self._table_name}')
+
+    def find_by_timestamp(self, timestamp: datetime) -> List[CountEntity]:
+        return self._fetch(
+            f'SELECT * from {self._table_name}'
+            f'    WHERE timestamp = {timestamp.timestamp()}')
 
 
 AbstractCountRepository.register(DatabaseCountRepository)
