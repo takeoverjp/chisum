@@ -3,7 +3,7 @@ from src.entity import Entity
 
 
 class StorageDatabase:
-    def __init__(self, file_name, table_name):
+    def __init__(self, file_name: str, table_name: str):
         self._file_name = file_name
         self._table_name = table_name
         self._connection = sqlite3.connect(self._file_name)
