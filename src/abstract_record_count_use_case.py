@@ -6,5 +6,5 @@ from src.record_count_input_data import RecordCountInputData
 
 class AbstractRecordCountUseCase(ABC):
     @abstractmethod
-    def handle(input: RecordCountInputData):
+    def handle(self, input: RecordCountInputData):
         pass
