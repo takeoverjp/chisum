@@ -6,9 +6,11 @@ from src.count_controller import CountController
 from src.database_count_repository import DatabaseCountRepository
 from src.record_count_use_case_interactor import RecordCountUseCaseInteractor
 
+
 @click.group()
 def cmd():
     pass
+
 
 @cmd.command()
 @click.argument('source', type=str)
