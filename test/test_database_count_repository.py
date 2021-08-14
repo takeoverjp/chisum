@@ -7,7 +7,7 @@ from src.database_count_repository import DatabaseCountRepository
 
 
 class TestDatabaseCountRepository(unittest.TestCase):
-    test_db_name = "test_database.db"
+    test_db_name = "test.db"
     test_table_name = "counts"
 
     def setUp(self) -> None:

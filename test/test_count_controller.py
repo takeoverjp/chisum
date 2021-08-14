@@ -8,7 +8,7 @@ from src.record_count_use_case_interactor import RecordCountUseCaseInteractor
 
 
 class TestCountController(unittest.TestCase):
-    test_db_name = "test_database.db"
+    test_db_name = "test.db"
     test_table_name = "counts"
 
     def setUp(self) -> None:
