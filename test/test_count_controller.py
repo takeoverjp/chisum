@@ -38,7 +38,7 @@ class TestCountController(unittest.TestCase):
 
         # Assert
         counts = self.repository.find_all()
-        self.assertEqual(len(counts), 638)
+        self.assertEqual(len(counts), 9)
 
     def test_record_multi(self):
         controller = CountController(self.interactor)
@@ -51,8 +51,8 @@ class TestCountController(unittest.TestCase):
 
         # Assert
         counts = self.repository.find_by_timestamp(time1)
-        self.assertEqual(len(counts), 638)
+        self.assertEqual(len(counts), 9)
         counts = self.repository.find_by_timestamp(time2)
-        self.assertEqual(len(counts), 817)
+        self.assertEqual(len(counts), 9)
         counts = self.repository.find_all()
-        self.assertEqual(len(counts), 638 + 817)
+        self.assertEqual(len(counts), 18)
