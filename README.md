@@ -23,6 +23,12 @@ pip3 install --user pipenv
 pipenv install --dev
 ```
 
+# Howto Record
+
+```
+pipenv run chisum record testdata/libs.txt out.db test_table
+```
+
 # Precommit check
 
 ```
