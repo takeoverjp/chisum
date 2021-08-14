@@ -6,7 +6,7 @@ from src.count_entity import CountEntity
 
 class AbstractCountRepository(ABC):
     @abstractmethod
-    def save(self, count: CountEntity):
+    def save(self, counts: List[CountEntity]):
         pass
 
     @abstractmethod
@@ -14,5 +14,5 @@ class AbstractCountRepository(ABC):
         pass
 
     @abstractmethod
-    def find_by_timestamp(self, timestamp: float) -> List[CountEntity]:
+    def find_by_timestamp(self, timestamp: int) -> List[CountEntity]:
         pass

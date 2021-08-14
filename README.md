@@ -38,7 +38,6 @@ pipenv run format && pipenv run lint && pipenv run test
 # ToDo items
 
 - [ ] Support report
-- [ ] Add InMemoryCountRepository
 - [ ] Add CsvCountRepository
 - [ ] Add class diagram
 - [ ] Add ARCHITECTURE.md
