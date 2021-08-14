@@ -1,28 +1,16 @@
 from datetime import datetime, timezone
-import os
 from src.count_entity import CountEntity
 import unittest
 
-from src.database_count_repository import DatabaseCountRepository
+from src.in_memory_count_repository import InMemoryCountRepository
 from src.record_count_input_data import RecordCountInputData
 from src.record_count_use_case_interactor import RecordCountUseCaseInteractor
 
 
 class TestRecordCountUseCaseInteractor(unittest.TestCase):
-    test_db_name = "test.db"
-    test_table_name = "counts"
-
     def setUp(self) -> None:
-        if os.path.isfile(self.test_db_name):
-            os.unlink(self.test_db_name)
-        self.repository = DatabaseCountRepository(
-            self.test_db_name, self.test_table_name)
+        self.repository = InMemoryCountRepository()
         return super().setUp()
-
-    def tearDown(self) -> None:
-        if os.path.isfile(self.test_db_name):
-            os.unlink(self.test_db_name)
-        return super().tearDown()
 
     def test_create(self):
         # Execute
