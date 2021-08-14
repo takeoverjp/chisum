@@ -26,7 +26,7 @@ pipenv install --dev
 # Howto Record
 
 ```
-pipenv run chisum record testdata/libs.txt out.db test_table
+pipenv run chisum record testdata/counts0.txt out.db test_table
 ```
 
 # Precommit check
