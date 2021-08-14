@@ -13,7 +13,7 @@ flake8 = "*"
 python_version = "3.8"
 
 [scripts]
-chisum = "python src/main.py"
+chisum = "python -m src.main"
 test = "python -m unittest discover -v -s test"
 format = "autopep8 -ivr ."
 lint = "flake8 --show-source ."

@@ -1,19 +1,16 @@
+from datetime import datetime
 
-def parse_line(line):
-    elem = line.split()
-    return (int(elem[0]), elem[1])
-
-
-def parse_snapshot():
-    with open('testdata/libs.txt') as f:
-        lines = [line.strip() for line in f.readlines()]
-        counts = list(map(parse_line, lines))
-        print(counts)
+from src.count_controller import CountController
+from src.database_count_repository import DatabaseCountRepository
+from src.record_count_use_case_interactor import RecordCountUseCaseInteractor
 
 
 def main():
-    print("Hello World")
-    parse_snapshot()
+    repository = DatabaseCountRepository(
+        "chisum.db", "table1")
+    interactor = RecordCountUseCaseInteractor(repository)
+    controller = CountController(interactor)
+    controller.record("testdata/libs.txt", datetime.now())
 
 
 if __name__ == '__main__':
