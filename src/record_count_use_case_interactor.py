@@ -9,3 +9,6 @@ class RecordCountUseCaseInteractor(AbstractRecordCountUseCase):
 
     def handle(self, input: RecordCountInputData):
         self.repository.save(input.counts)
+
+
+AbstractRecordCountUseCase.register(RecordCountUseCaseInteractor)

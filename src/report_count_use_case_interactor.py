@@ -8,3 +8,6 @@ class ReportCountUseCaseInteractor(AbstractReportCountUseCase):
 
     def handle(self):
         pass
+
+
+AbstractReportCountUseCase.register(AbstractReportCountUseCase)
