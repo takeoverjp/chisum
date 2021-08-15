@@ -20,9 +20,9 @@ class TestRecordCountController(unittest.TestCase):
         controller = RecordCountController(self.interactor)
 
         # Execute
-        controller.record("testdata/counts0.txt",
-                          datetime(2020, 1, 1,
-                                   tzinfo=timezone.utc))
+        controller.run("testdata/counts0.txt",
+                       datetime(2020, 1, 1,
+                                tzinfo=timezone.utc))
 
         # Assert
         counts = self.repository.find_all()
@@ -34,8 +34,8 @@ class TestRecordCountController(unittest.TestCase):
         time2 = time1 + timedelta(days=1)
 
         # Execute
-        controller.record("testdata/counts0.txt", time1)
-        controller.record("testdata/counts1.txt", time2)
+        controller.run("testdata/counts0.txt", time1)
+        controller.run("testdata/counts1.txt", time2)
 
         # Assert
         counts = self.repository.find_by_timestamp(time1)

@@ -21,7 +21,7 @@ def record(source, dest_database, table):
         dest_database, table)
     interactor = RecordCountUseCaseInteractor(repository)
     controller = RecordCountController(interactor)
-    controller.record(source, datetime.now())
+    controller.run(source, datetime.now())
 
 
 def main():

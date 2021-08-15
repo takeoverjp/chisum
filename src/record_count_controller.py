@@ -22,7 +22,7 @@ class RecordCountController:
             counts = list(map(parse_line, lines))
         return counts
 
-    def record(self, file_path: str, timestamp: datetime):
+    def run(self, file_path: str, timestamp: datetime):
         counts = self.parse_snapshot(file_path, timestamp)
         input = RecordCountInputData(counts)
         self.input_boundary.handle(input)
