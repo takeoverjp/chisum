@@ -29,6 +29,12 @@ pipenv install --dev
 pipenv run chisum record testdata/counts0.txt out.db test_table
 ```
 
+# Howto Report
+
+```
+pipenv run chisum report out.db test_table
+```
+
 # Precommit check
 
 ```
@@ -37,7 +43,9 @@ pipenv run format && pipenv run lint && pipenv run test
 
 # ToDo items
 
-- [ ] Support report
 - [ ] Add CsvCountRepository
-- [ ] Add class diagram
-- [ ] Add ARCHITECTURE.md
+- [ ] Directoryを分ける
+- [ ] Repositoryのunittestをまとめる
+- [ ] 相対パスを使ってimport
+- [ ] importの並び替え自動化
+- [ ] datetimeのutc強制
