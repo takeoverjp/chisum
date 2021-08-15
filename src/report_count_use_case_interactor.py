@@ -10,4 +10,4 @@ class ReportCountUseCaseInteractor(AbstractReportCountUseCase):
         pass
 
 
-AbstractReportCountUseCase.register(AbstractReportCountUseCase)
+AbstractReportCountUseCase.register(ReportCountUseCaseInteractor)
