@@ -1,12 +1,12 @@
 from datetime import datetime, timedelta, timezone
-from src.count_controller import CountController
+from src.record_count_controller import RecordCountController
 import unittest
 
 from src.in_memory_count_repository import InMemoryCountRepository
 from src.record_count_use_case_interactor import RecordCountUseCaseInteractor
 
 
-class TestCountController(unittest.TestCase):
+class TestRecordCountController(unittest.TestCase):
     def setUp(self) -> None:
         self.repository = InMemoryCountRepository()
         self.interactor = RecordCountUseCaseInteractor(self.repository)
@@ -14,10 +14,10 @@ class TestCountController(unittest.TestCase):
 
     def test_create(self):
         # Execute
-        CountController(self.interactor)
+        RecordCountController(self.interactor)
 
     def test_record_once(self):
-        controller = CountController(self.interactor)
+        controller = RecordCountController(self.interactor)
 
         # Execute
         controller.record("testdata/counts0.txt",
@@ -29,7 +29,7 @@ class TestCountController(unittest.TestCase):
         self.assertEqual(len(counts), 9)
 
     def test_record_multi(self):
-        controller = CountController(self.interactor)
+        controller = RecordCountController(self.interactor)
         time1 = datetime(2020, 1, 1, tzinfo=timezone.utc)
         time2 = time1 + timedelta(days=1)
 

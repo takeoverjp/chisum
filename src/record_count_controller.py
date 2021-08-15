@@ -5,7 +5,7 @@ from src.count_entity import CountEntity
 from src.record_count_input_data import RecordCountInputData
 
 
-class CountController:
+class RecordCountController:
     input_boundary: AbstractRecordCountUseCase
 
     def __init__(self, input_boundary: AbstractRecordCountUseCase):

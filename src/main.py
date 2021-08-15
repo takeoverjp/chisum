@@ -2,7 +2,7 @@ from datetime import datetime
 
 import click
 
-from src.count_controller import CountController
+from src.record_count_controller import RecordCountController
 from src.database_count_repository import DatabaseCountRepository
 from src.record_count_use_case_interactor import RecordCountUseCaseInteractor
 
@@ -20,7 +20,7 @@ def record(source, dest_database, table):
     repository = DatabaseCountRepository(
         dest_database, table)
     interactor = RecordCountUseCaseInteractor(repository)
-    controller = CountController(interactor)
+    controller = RecordCountController(interactor)
     controller.record(source, datetime.now())
 
 
