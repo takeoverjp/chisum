@@ -82,6 +82,23 @@ class TestInMemoryCountRepository(unittest.TestCase):
         self.assertNotIn(ent1, counts)
         self.assertNotIn(ent2, counts)
 
+    def test_get_timestamps(self):
+        # SetUp
+        repository = InMemoryCountRepository()
+        dates = [datetime(2020, 1, 1),
+                 datetime(2020, 1, 2),
+                 datetime(2020, 1, 3)]
+        counts = list(map(lambda date: CountEntity(date, "key", 1), dates))
+        repository.save(counts)
+
+        # Execute
+        timestamps = repository.get_timestamps(2)
+
+        # Assert
+        self.assertEqual(len(timestamps), 2)
+        self.assertEqual(timestamps[0], dates[2])
+        self.assertEqual(timestamps[1], dates[1])
+
 
 if __name__ == '__main__':
     unittest.main()
