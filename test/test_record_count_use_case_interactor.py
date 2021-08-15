@@ -31,16 +31,17 @@ class TestRecordCountUseCaseInteractor(unittest.TestCase):
     def test_handle_multi_input(self):
         # Setup
         interactor = RecordCountUseCaseInteractor(self.repository)
-        input = RecordCountInputData()
         ent0 = CountEntity(datetime(2020, 1, 1, 0, 0, 0,
                                     tzinfo=timezone.utc), "/bin/bash", 3)
         ent1 = CountEntity(datetime(2021, 2, 3, 4, 5, 6,
                                     tzinfo=timezone.utc), "/bin/sash", 4)
         ent2 = CountEntity(datetime(2022, 3, 4, 5, 6, 7,
                                     tzinfo=timezone.utc), "/bin/cash", 5)
-        input.counts.append(ent0)
-        input.counts.append(ent1)
-        input.counts.append(ent2)
+        counts = []
+        counts.append(ent0)
+        counts.append(ent1)
+        counts.append(ent2)
+        input = RecordCountInputData(counts)
 
         # Execute
         interactor.handle(input)

@@ -23,6 +23,6 @@ class CountController:
         return counts
 
     def record(self, file_path: str, timestamp: datetime):
-        input = RecordCountInputData()
-        input.counts = self.parse_snapshot(file_path, timestamp)
+        counts = self.parse_snapshot(file_path, timestamp)
+        input = RecordCountInputData(counts)
         self.input_boundary.handle(input)
