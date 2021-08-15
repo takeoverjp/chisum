@@ -1,8 +1,9 @@
 import sqlite3
 from datetime import datetime, timezone
 from typing import List
-from src.count_entity import CountEntity
+
 from src.abstract_count_repository import AbstractCountRepository
+from src.count_entity import CountEntity
 
 
 class DatabaseCountRepository(AbstractCountRepository):
@@ -65,6 +66,14 @@ class DatabaseCountRepository(AbstractCountRepository):
         return self._fetch(
             f'SELECT * from {self._table_name}'
             f'    WHERE timestamp = {int(timestamp.timestamp())}')
+
+    def get_timestamps(self, max_num: int) -> List[datetime]:
+        timestamps = self._cursor.execute(
+            f'SELECT DISTINCT timestamp from {self._table_name}'
+            f'    ORDER BY timestamp DESC LIMIT {max_num}').fetchall()
+        return list(map(lambda row:
+                        datetime.fromtimestamp(row[0], tz=timezone.utc),
+                        timestamps))
 
 
 AbstractCountRepository.register(DatabaseCountRepository)

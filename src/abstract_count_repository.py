@@ -1,6 +1,7 @@
-from abc import ABC
-from abc import abstractmethod
+from abc import ABC, abstractmethod
+from datetime import datetime
 from typing import List
+
 from src.count_entity import CountEntity
 
 
@@ -15,4 +16,8 @@ class AbstractCountRepository(ABC):
 
     @abstractmethod
     def find_by_timestamp(self, timestamp: int) -> List[CountEntity]:
+        pass
+
+    @abstractmethod
+    def get_timestamps(self, max_num: int) -> List[datetime]:
         pass

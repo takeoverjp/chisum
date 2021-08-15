@@ -85,9 +85,9 @@ class TestInMemoryCountRepository(unittest.TestCase):
     def test_get_timestamps(self):
         # SetUp
         repository = InMemoryCountRepository()
-        dates = [datetime(2020, 1, 1),
-                 datetime(2020, 1, 2),
-                 datetime(2020, 1, 3)]
+        dates = [datetime(2020, 1, 1, tzinfo=timezone.utc),
+                 datetime(2020, 1, 2, tzinfo=timezone.utc),
+                 datetime(2020, 1, 3, tzinfo=timezone.utc)]
         counts = list(map(lambda date: CountEntity(date, "key", 1), dates))
         repository.save(counts)
 
