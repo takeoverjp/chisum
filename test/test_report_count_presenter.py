@@ -1,8 +1,8 @@
-from src.count_entity import CountEntity
 import unittest
 from datetime import datetime
 from test.support import captured_stdout
 
+from src.count_entity import CountEntity
 from src.report_count_output_data import ReportCountOutputData
 from src.report_count_presenter import ReportCountPresenter
 
