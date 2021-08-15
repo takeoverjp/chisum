@@ -1,0 +1,57 @@
+@startuml class_diagram
+
+package "Enterprise Business Rules" {
+    class CountEntity
+}
+
+package "Application Business Rules" {
+    interface AbstractRecordCountUseCase <<Input Boundary>>
+    class RecordCountUseCaseInteractor
+    entity RecordCountInputData <<Input Data>>
+    RecordCountUseCaseInteractor -up-> CountEntity
+    RecordCountUseCaseInteractor -down-|> AbstractRecordCountUseCase
+    RecordCountUseCaseInteractor --> RecordCountInputData
+
+    interface AbstractReportCountUseCase <<Input Boundary>>
+    class ReportCountUseCaseInteractor
+    ReportCountUseCaseInteractor -up-> CountEntity
+    ReportCountUseCaseInteractor -down-|> AbstractReportCountUseCase
+    ReportCountUseCaseInteractor --> AbstractReportCountPresenter
+    ReportCountUseCaseInteractor --> ReportCountOutputData
+
+    interface AbstractReportCountPresenter <<Output Boundary>>
+    class ReportCountOutputData <<Output Data>>
+
+    interface AbstractCountRepository
+    AbstractCountRepository -up-> CountEntity
+}
+
+package "Interface Adapters" {
+    class RecordCountController
+    RecordCountController -up-> RecordCountInputData
+    RecordCountController -up-> AbstractRecordCountUseCase
+    class ReportCountController
+    ReportCountController -up-> RecordCountInputData
+    ReportCountController -up-> AbstractReportCountUseCase
+    class ReportCountPresenter
+    ReportCountPresenter -up-|> AbstractReportCountPresenter
+    ReportCountPresenter -up-> ReportCountOutputData
+}
+
+package "Frameworks & Drivers" {
+    class DataBaseCountRepository
+    DataBaseCountRepository -up-|> AbstractCountRepository
+    DataBaseCountRepository -down-> sqlite3
+    class InMemoryCountRepository
+    InMemoryCountRepository -up-|> AbstractCountRepository
+}
+
+class main
+main -up-> DataBaseCountRepository
+main -up-> RecordCountUseCaseInteractor
+main -up-> ReportCountUseCaseInteractor
+main -up-> RecordCountController
+main -up-> ReportCountController
+main -up-> ReportCountPresenter
+
+@enduml
