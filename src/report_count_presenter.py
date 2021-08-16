@@ -16,12 +16,10 @@ class ReportCountPresenter(AbstractReportCountPresenter):
         latest_total = ReportCountPresenter._accumulate(output.latest)
         diff = latest_total - one_old_total
         if diff == 0:
-            diff_str = '-'
-        elif diff > 0:
-            diff_str = f'+{diff}'
+            diff_str = ''
         else:
-            diff_str = str(diff)
-        total_line = f'Total: {latest_total}({diff_str})'
+            diff_str = f'({diff:+})'
+        total_line = f'Total: {latest_total}{diff_str}'
         print(total_line)
 
 
