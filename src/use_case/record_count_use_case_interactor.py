@@ -1,6 +1,6 @@
-from src.abstract_count_repository import AbstractCountRepository
-from src.abstract_record_count_use_case import AbstractRecordCountUseCase
-from src.record_count_input_data import RecordCountInputData
+from .abstract_count_repository import AbstractCountRepository
+from .abstract_record_count_use_case import AbstractRecordCountUseCase
+from .record_count_input_data import RecordCountInputData
 
 
 class RecordCountUseCaseInteractor(AbstractRecordCountUseCase):

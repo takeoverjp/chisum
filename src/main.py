@@ -2,12 +2,15 @@ from datetime import datetime
 
 import click
 
-from src.database_count_repository import DatabaseCountRepository
-from src.record_count_controller import RecordCountController
-from src.record_count_use_case_interactor import RecordCountUseCaseInteractor
-from src.report_count_controller import ReportCountController
-from src.report_count_presenter import ReportCountPresenter
-from src.report_count_use_case_interactor import ReportCountUseCaseInteractor
+from src.interface_adapter.database_count_repository import \
+    DatabaseCountRepository
+from src.interface_adapter.record_count_controller import RecordCountController
+from src.interface_adapter.report_count_controller import ReportCountController
+from src.interface_adapter.report_count_presenter import ReportCountPresenter
+from src.use_case.record_count_use_case_interactor import \
+    RecordCountUseCaseInteractor
+from src.use_case.report_count_use_case_interactor import \
+    ReportCountUseCaseInteractor
 
 
 @click.group()

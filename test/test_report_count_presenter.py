@@ -3,8 +3,8 @@ from datetime import datetime
 from test.support import captured_stdout
 
 from src.entity.count_entity import CountEntity
-from src.report_count_output_data import ReportCountOutputData
-from src.report_count_presenter import ReportCountPresenter
+from src.interface_adapter.report_count_presenter import ReportCountPresenter
+from src.use_case.report_count_output_data import ReportCountOutputData
 
 
 class TestReportCountPresenter(unittest.TestCase):

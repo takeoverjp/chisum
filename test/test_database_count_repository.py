@@ -3,7 +3,8 @@ import unittest
 from datetime import datetime, timezone
 
 from src.entity.count_entity import CountEntity
-from src.database_count_repository import DatabaseCountRepository
+from src.interface_adapter.database_count_repository import \
+    DatabaseCountRepository
 
 
 class TestDatabaseCountRepository(unittest.TestCase):

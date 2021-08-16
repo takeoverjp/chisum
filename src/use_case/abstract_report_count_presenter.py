@@ -1,7 +1,6 @@
-from abc import ABC
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 
-from src.report_count_output_data import ReportCountOutputData
+from .report_count_output_data import ReportCountOutputData
 
 
 class AbstractReportCountPresenter(ABC):

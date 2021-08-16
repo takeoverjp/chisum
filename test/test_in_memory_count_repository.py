@@ -2,7 +2,8 @@ import unittest
 from datetime import datetime, timezone
 
 from src.entity.count_entity import CountEntity
-from src.in_memory_count_repository import InMemoryCountRepository
+from src.interface_adapter.in_memory_count_repository import \
+    InMemoryCountRepository
 
 
 class TestInMemoryCountRepository(unittest.TestCase):

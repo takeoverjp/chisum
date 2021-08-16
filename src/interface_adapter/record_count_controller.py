@@ -1,8 +1,9 @@
 from datetime import datetime
 
-from src.abstract_record_count_use_case import AbstractRecordCountUseCase
 from src.entity.count_entity import CountEntity
-from src.record_count_input_data import RecordCountInputData
+from src.use_case.abstract_record_count_use_case import \
+    AbstractRecordCountUseCase
+from src.use_case.record_count_input_data import RecordCountInputData
 
 
 class RecordCountController:

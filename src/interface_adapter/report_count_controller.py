@@ -1,4 +1,5 @@
-from src.abstract_report_count_use_case import AbstractReportCountUseCase
+from src.use_case.abstract_report_count_use_case import \
+    AbstractReportCountUseCase
 
 
 class ReportCountController:

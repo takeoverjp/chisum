@@ -2,8 +2,8 @@ import sqlite3
 from datetime import datetime, timezone
 from typing import List
 
-from src.abstract_count_repository import AbstractCountRepository
 from src.entity.count_entity import CountEntity
+from src.use_case.abstract_count_repository import AbstractCountRepository
 
 
 class DatabaseCountRepository(AbstractCountRepository):

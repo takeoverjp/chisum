@@ -1,9 +1,10 @@
-from typing import List
 from functools import reduce
+from typing import List
 
-from src.abstract_report_count_presenter import AbstractReportCountPresenter
 from src.entity.count_entity import CountEntity
-from src.report_count_output_data import ReportCountOutputData
+from src.use_case.abstract_report_count_presenter import \
+    AbstractReportCountPresenter
+from src.use_case.report_count_output_data import ReportCountOutputData
 
 
 class ReportCountPresenter(AbstractReportCountPresenter):

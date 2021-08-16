@@ -1,10 +1,12 @@
-from datetime import datetime, timezone
-from src.entity.count_entity import CountEntity
 import unittest
+from datetime import datetime, timezone
 
-from src.in_memory_count_repository import InMemoryCountRepository
-from src.record_count_input_data import RecordCountInputData
-from src.record_count_use_case_interactor import RecordCountUseCaseInteractor
+from src.entity.count_entity import CountEntity
+from src.interface_adapter.in_memory_count_repository import \
+    InMemoryCountRepository
+from src.use_case.record_count_input_data import RecordCountInputData
+from src.use_case.record_count_use_case_interactor import \
+    RecordCountUseCaseInteractor
 
 
 class TestRecordCountUseCaseInteractor(unittest.TestCase):

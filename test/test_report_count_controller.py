@@ -1,8 +1,10 @@
-from src.report_count_controller import ReportCountController
 import unittest
 
-from src.in_memory_count_repository import InMemoryCountRepository
-from src.record_count_use_case_interactor import RecordCountUseCaseInteractor
+from src.interface_adapter.in_memory_count_repository import \
+    InMemoryCountRepository
+from src.interface_adapter.report_count_controller import ReportCountController
+from src.use_case.record_count_use_case_interactor import \
+    RecordCountUseCaseInteractor
 
 
 class TestRecordCountController(unittest.TestCase):

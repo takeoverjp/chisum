@@ -3,9 +3,11 @@ from datetime import datetime
 from test.support import captured_stdout
 
 from src.entity.count_entity import CountEntity
-from src.in_memory_count_repository import InMemoryCountRepository
-from src.report_count_presenter import ReportCountPresenter
-from src.report_count_use_case_interactor import ReportCountUseCaseInteractor
+from src.interface_adapter.in_memory_count_repository import \
+    InMemoryCountRepository
+from src.interface_adapter.report_count_presenter import ReportCountPresenter
+from src.use_case.report_count_use_case_interactor import \
+    ReportCountUseCaseInteractor
 
 
 class TestReportCountUseCaseInteractor(unittest.TestCase):

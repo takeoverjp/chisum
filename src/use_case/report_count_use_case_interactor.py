@@ -1,6 +1,6 @@
-from src.abstract_count_repository import AbstractCountRepository
-from src.abstract_report_count_use_case import AbstractReportCountUseCase
+from .abstract_count_repository import AbstractCountRepository
 from .abstract_report_count_presenter import AbstractReportCountPresenter
+from .abstract_report_count_use_case import AbstractReportCountUseCase
 from .report_count_output_data import ReportCountOutputData
 
 
