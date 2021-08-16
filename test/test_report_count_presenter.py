@@ -13,7 +13,7 @@ class TestReportCountPresenter(unittest.TestCase):
         self.one_old = [CountEntity(one_old_date, "increase", 2),
                         CountEntity(one_old_date, "no_change", 2),
                         CountEntity(one_old_date, "decrease", 2),
-                        CountEntity(one_old_date, "desappear", 2)]
+                        CountEntity(one_old_date, "disappear", 2)]
         latest_date = datetime(2020, 1, 2)
         self.latest = [CountEntity(latest_date, "increase", 4),
                        CountEntity(latest_date, "no_change", 2),
@@ -37,7 +37,7 @@ class TestReportCountPresenter(unittest.TestCase):
             presenter.complete(output)
 
         # Assert
-        self.assertIn('Total: 0', stdout.getvalue())
+        self.assertIn('0 (   +0) total', stdout.getvalue())
 
     def test_report_with_one_old(self):
         output = ReportCountOutputData(self.latest, self.one_old)
@@ -48,7 +48,12 @@ class TestReportCountPresenter(unittest.TestCase):
             presenter.complete(output)
 
         # Assert
-        self.assertIn('Total: 9(+1)', stdout.getvalue())
+        self.assertIn('4 (   +2) increase', stdout.getvalue())
+        self.assertIn('2 (   +0) no_change', stdout.getvalue())
+        self.assertIn('1 (   -1) decrease', stdout.getvalue())
+        self.assertIn('2 (   +2) appear', stdout.getvalue())
+        self.assertIn('0 (   -2) disappear', stdout.getvalue())
+        self.assertIn('9 (   +1) total', stdout.getvalue())
 
     def test_report_without_one_old(self):
         output = ReportCountOutputData(self.latest)
@@ -59,4 +64,9 @@ class TestReportCountPresenter(unittest.TestCase):
             presenter.complete(output)
 
         # Assert
-        self.assertIn('Total: 9(+9)', stdout.getvalue())
+        self.assertIn('4 (   +4) increase', stdout.getvalue())
+        self.assertIn('2 (   +2) no_change', stdout.getvalue())
+        self.assertIn('1 (   +1) decrease', stdout.getvalue())
+        self.assertIn('2 (   +2) appear', stdout.getvalue())
+        self.assertIn('9 (   +9) total', stdout.getvalue())
+        self.assertNotIn('disappear', stdout.getvalue())

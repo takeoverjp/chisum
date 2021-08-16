@@ -12,15 +12,19 @@ class ReportCountPresenter(AbstractReportCountPresenter):
         return reduce(lambda a, b: a + b.value, counts, 0)
 
     def complete(self, output: ReportCountOutputData):
+        dict = {one_old.key: [one_old.value, 0] for one_old in output.one_old}
+        for latest in output.latest:
+            if latest.key in dict:
+                dict[latest.key][1] = latest.value
+            else:
+                dict[latest.key] = (0, latest.value)
+        for key, value in dict.items():
+            print(f'{value[1]:#5} ({value[1]-value[0]:+#5}) {key}')
+
         one_old_total = ReportCountPresenter._accumulate(output.one_old)
         latest_total = ReportCountPresenter._accumulate(output.latest)
         diff = latest_total - one_old_total
-        if diff == 0:
-            diff_str = ''
-        else:
-            diff_str = f'({diff:+})'
-        total_line = f'Total: {latest_total}{diff_str}'
-        print(total_line)
+        print(f'{latest_total:#5} ({diff:+#5}) total')
 
 
 AbstractReportCountPresenter.register(ReportCountPresenter)

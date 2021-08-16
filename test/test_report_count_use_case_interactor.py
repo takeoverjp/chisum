@@ -39,4 +39,9 @@ class TestReportCountUseCaseInteractor(unittest.TestCase):
             interactor.handle()
 
         # Assert
-        self.assertIn('Total: 9(+1)', stdout.getvalue())
+        self.assertIn('4 (   +2) increase', stdout.getvalue())
+        self.assertIn('2 (   +0) no_change', stdout.getvalue())
+        self.assertIn('1 (   -1) decrease', stdout.getvalue())
+        self.assertIn('2 (   +2) appear', stdout.getvalue())
+        self.assertIn('0 (   -2) disappear', stdout.getvalue())
+        self.assertIn('9 (   +1) total', stdout.getvalue())
