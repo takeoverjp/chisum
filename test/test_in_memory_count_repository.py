@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime, timezone
 
-from src.count_entity import CountEntity
+from src.entity.count_entity import CountEntity
 from src.in_memory_count_repository import InMemoryCountRepository
 
 

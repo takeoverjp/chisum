@@ -2,7 +2,7 @@ from typing import List
 from functools import reduce
 
 from src.abstract_report_count_presenter import AbstractReportCountPresenter
-from src.count_entity import CountEntity
+from src.entity.count_entity import CountEntity
 from src.report_count_output_data import ReportCountOutputData
 
 

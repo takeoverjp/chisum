@@ -2,7 +2,7 @@ import unittest
 from datetime import datetime
 from test.support import captured_stdout
 
-from src.count_entity import CountEntity
+from src.entity.count_entity import CountEntity
 from src.in_memory_count_repository import InMemoryCountRepository
 from src.report_count_presenter import ReportCountPresenter
 from src.report_count_use_case_interactor import ReportCountUseCaseInteractor

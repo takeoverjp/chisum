@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import List
-from src.count_entity import CountEntity
+from src.entity.count_entity import CountEntity
 from src.abstract_count_repository import AbstractCountRepository
 
 

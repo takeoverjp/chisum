@@ -1,6 +1,6 @@
 from typing import List
 from dataclasses import dataclass, field
-from src.count_entity import CountEntity
+from src.entity.count_entity import CountEntity
 
 
 @dataclass(frozen=True)

@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 from typing import List
 
 from src.abstract_count_repository import AbstractCountRepository
-from src.count_entity import CountEntity
+from src.entity.count_entity import CountEntity
 
 
 class DatabaseCountRepository(AbstractCountRepository):
