@@ -37,7 +37,7 @@ class TestReportCountPresenter(unittest.TestCase):
             presenter.complete(output)
 
         # Assert
-        self.assertIn('0 (   +0) total', stdout.getvalue())
+        self.assertEqual('', stdout.getvalue())
 
     def test_report_with_one_old(self):
         output = ReportCountOutputData(self.latest, self.one_old)
@@ -48,12 +48,12 @@ class TestReportCountPresenter(unittest.TestCase):
             presenter.complete(output)
 
         # Assert
+        self.assertIn('9 (   +1) TOTAL', stdout.getvalue())
         self.assertIn('4 (   +2) increase', stdout.getvalue())
         self.assertIn('2 (   +0) no_change', stdout.getvalue())
         self.assertIn('1 (   -1) decrease', stdout.getvalue())
         self.assertIn('2 (   +2) appear', stdout.getvalue())
         self.assertIn('0 (   -2) disappear', stdout.getvalue())
-        self.assertIn('9 (   +1) total', stdout.getvalue())
 
     def test_report_without_one_old(self):
         output = ReportCountOutputData(self.latest)
@@ -64,9 +64,9 @@ class TestReportCountPresenter(unittest.TestCase):
             presenter.complete(output)
 
         # Assert
+        self.assertIn('9 (   +9) TOTAL', stdout.getvalue())
         self.assertIn('4 (   +4) increase', stdout.getvalue())
         self.assertIn('2 (   +2) no_change', stdout.getvalue())
         self.assertIn('1 (   +1) decrease', stdout.getvalue())
         self.assertIn('2 (   +2) appear', stdout.getvalue())
-        self.assertIn('9 (   +9) total', stdout.getvalue())
         self.assertNotIn('disappear', stdout.getvalue())

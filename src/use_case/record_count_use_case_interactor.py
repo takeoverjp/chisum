@@ -8,7 +8,9 @@ class RecordCountUseCaseInteractor(AbstractRecordCountUseCase):
         self.repository = repository
 
     def handle(self, input: RecordCountInputData):
+        # TODO: must be atomic
         self.repository.save(input.counts)
+        self.repository.save_timestamps([input.timestamp])
 
 
 AbstractRecordCountUseCase.register(RecordCountUseCaseInteractor)

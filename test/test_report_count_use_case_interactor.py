@@ -24,6 +24,7 @@ class TestReportCountUseCaseInteractor(unittest.TestCase):
                   CountEntity(dates[1], "no_change", 2),
                   CountEntity(dates[1], "decrease", 1),
                   CountEntity(dates[1], "appear", 2)]
+        self.repository.save_timestamps(dates)
         self.repository.save(counts)
 
         return super().setUp()
@@ -46,4 +47,4 @@ class TestReportCountUseCaseInteractor(unittest.TestCase):
         self.assertIn('1 (   -1) decrease', stdout.getvalue())
         self.assertIn('2 (   +2) appear', stdout.getvalue())
         self.assertIn('0 (   -2) disappear', stdout.getvalue())
-        self.assertIn('9 (   +1) total', stdout.getvalue())
+        self.assertIn('9 (   +1) TOTAL', stdout.getvalue())

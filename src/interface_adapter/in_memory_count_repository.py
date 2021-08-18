@@ -10,9 +10,13 @@ class InMemoryCountRepository(AbstractCountRepository):
 
     def __init__(self) -> None:
         self.counts = []
+        self.timestamps = []
 
     def save(self, counts: List[CountEntity]):
         self.counts.extend(counts)
+
+    def save_timestamps(self, timestamps: List[datetime]):
+        self.timestamps.extend(timestamps)
 
     def find_all(self) -> List[CountEntity]:
         return self.counts

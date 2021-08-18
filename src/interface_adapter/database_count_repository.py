@@ -10,6 +10,7 @@ class DatabaseCountRepository(AbstractCountRepository):
     def __init__(self, file_name: str, table_name: str):
         self._file_name = file_name
         self._table_name = table_name
+        self._timestamp_table_name = table_name + "_timestamp"
         self._connection = sqlite3.connect(self._file_name)
         # self._connection.set_trace_callback(print)
         self._cursor = self._connection.cursor()
@@ -31,6 +32,10 @@ class DatabaseCountRepository(AbstractCountRepository):
             f'CREATE TABLE {self._table_name}'
             '    (timestamp INTEGER, key TEXT, value INTEGER)'
         )
+        self._cursor.execute(
+            f'CREATE TABLE {self._timestamp_table_name}'
+            '    (timestamp INTEGER)'
+        )
         self._connection.commit()
 
     def dump_master(self):
@@ -47,6 +52,14 @@ class DatabaseCountRepository(AbstractCountRepository):
                 f'       {int(count.timestamp.timestamp())},'
                 f'       "{count.key}",'
                 f'       {count.value})')
+        self._connection.commit()
+
+    def save_timestamps(self, timestamps: List[datetime]):
+        for ts in timestamps:
+            self._cursor.execute(
+                f'INSERT INTO {self._timestamp_table_name}'
+                '    (timestamp)'
+                f'    VALUES ({int(ts.timestamp())})')
         self._connection.commit()
 
     def _fetch(self, sql: str) -> List[CountEntity]:
@@ -69,7 +82,7 @@ class DatabaseCountRepository(AbstractCountRepository):
 
     def get_timestamps(self, max_num: int) -> List[datetime]:
         timestamps = self._cursor.execute(
-            f'SELECT DISTINCT timestamp from {self._table_name}'
+            f'SELECT DISTINCT timestamp from {self._timestamp_table_name}'
             f'    ORDER BY timestamp DESC LIMIT {max_num}').fetchall()
         return list(map(lambda row:
                         datetime.fromtimestamp(row[0], tz=timezone.utc),

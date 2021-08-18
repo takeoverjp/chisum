@@ -121,8 +121,7 @@ class TestDatabaseCountRepository(unittest.TestCase):
         dates = [datetime(2020, 1, 1, tzinfo=timezone.utc),
                  datetime(2020, 1, 2, tzinfo=timezone.utc),
                  datetime(2020, 1, 3, tzinfo=timezone.utc)]
-        counts = list(map(lambda date: CountEntity(date, "key", 1), dates))
-        repository.save(counts)
+        repository.save_timestamps(dates)
 
         # Execute
         timestamps = repository.get_timestamps(2)

@@ -25,5 +25,5 @@ class RecordCountController:
 
     def run(self, file_path: str, timestamp: datetime):
         counts = self.parse_snapshot(file_path, timestamp)
-        input = RecordCountInputData(counts)
+        input = RecordCountInputData(timestamp, counts)
         self.input_boundary.handle(input)

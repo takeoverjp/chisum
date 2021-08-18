@@ -11,6 +11,10 @@ class AbstractCountRepository(ABC):
         pass
 
     @abstractmethod
+    def save_timestamps(self, timestamps: List[datetime]):
+        pass
+
+    @abstractmethod
     def find_all(self) -> List[CountEntity]:
         pass
 
