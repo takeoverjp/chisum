@@ -17,6 +17,7 @@ class ReportCountUseCaseInteractor(AbstractReportCountUseCase):
             map(lambda ts:
                 self.repository.find_by_timestamp(ts),
                 timestamps))
+        counts += [[]] * (2 - len(counts))
         output = ReportCountOutputData(counts[0], counts[1])
         self.presenter.complete(output)
 
